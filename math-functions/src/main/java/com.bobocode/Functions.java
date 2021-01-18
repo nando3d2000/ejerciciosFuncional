@@ -1,5 +1,7 @@
 package com.bobocode;
 
+import java.util.function.Function;
+
 public class Functions {
     /**
      * A static factory method that creates an integer function map with basic functions:
@@ -15,6 +17,11 @@ public class Functions {
         FunctionMap<Integer, Integer> intFunctionMap = new FunctionMap<>();
 
         // todo: add simple functions to the function map (abs, sng, increment, decrement, square)
+        intFunctionMap.addFunction("abs",numero->numero>=0?numero:-numero);
+        intFunctionMap.addFunction("sgn",numero->numero>0?1:(numero<0?-1:0));
+        intFunctionMap.addFunction("increment",value->value+1);
+        intFunctionMap.addFunction("decrement",value->value-1);
+        intFunctionMap.addFunction("square",value->value*value);
 
         return intFunctionMap;
     }

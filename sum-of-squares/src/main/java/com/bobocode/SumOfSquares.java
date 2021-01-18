@@ -1,6 +1,8 @@
 package com.bobocode;
 
 
+import java.util.stream.IntStream;
+
 import com.bobocode.exception.InvalidRangeException;
 
 
@@ -10,7 +12,7 @@ import com.bobocode.exception.InvalidRangeException;
  */
 public class SumOfSquares {
     public static void main(String[] args) {
-        System.out.println("Sum of squares from 5 to 10 is " + calculateSumOfSquaresInRange(5, 10));
+        System.out.println("Sum of squares from -4 to -2 is " + calculateSumOfSquaresInRange(-4, -2));
     }
 
     /**
@@ -25,11 +27,10 @@ public class SumOfSquares {
             throw new InvalidRangeException();
         }
 
-        // todo: refactor using functional approach
-        int sumOfSquares = 0;
-        for (int i = startInclusive; i <= endInclusive; i++) {
-            sumOfSquares += i * i;
-        }
-        return sumOfSquares;
+        IntStream streamNumeros=IntStream.rangeClosed(startInclusive, endInclusive);
+        
+        
+        return streamNumeros
+        		.reduce(0,(acumulador,numero)->acumulador+(int)Math.pow(numero, 2));       
     }
 }
