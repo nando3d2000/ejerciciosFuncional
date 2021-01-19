@@ -138,7 +138,12 @@ public class CrazyLambdas {
      * @return a thread supplier
      */
     public static Supplier<Thread> runningThreadSupplier(Runnable runnable) {
-        return ()->new Thread(runnable);
+        return ()->{
+            Thread hilo=new Thread(runnable);
+            hilo.start();
+
+            return hilo;
+        };
     }
 
     /**
@@ -157,7 +162,12 @@ public class CrazyLambdas {
      * @return a function that transforms runnable into a thread supplier
      */
     public static Function<Runnable, Supplier<Thread>> runnableToThreadSupplierFunction() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return runnable->()->{
+            Thread hilo=new Thread(runnable);
+            hilo.run();
+
+            return  hilo;
+        };
     }
 
     /**
@@ -170,7 +180,7 @@ public class CrazyLambdas {
      * @return a binary function that receiver predicate and function and compose them to create a new function
      */
     public static BiFunction<IntUnaryOperator, IntPredicate, IntUnaryOperator> functionToConditionalFunction() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return (operadorUnario,predicado)->num->predicado.test(num)?operadorUnario.applyAsInt(num):num;
     }
 
     /**
@@ -181,7 +191,7 @@ public class CrazyLambdas {
      * @return a high-order function that fetches a function from a function map by a given name or returns identity()
      */
     public static BiFunction<Map<String, IntUnaryOperator>, String, IntUnaryOperator> functionLoader() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return (map,texto)->map.containsKey(texto)?map.get(texto):num->num;
     }
 
     /**
@@ -190,7 +200,7 @@ public class CrazyLambdas {
      * @return a supplier instance
      */
     public static Supplier<Supplier<Supplier<String>>> trickyWellDoneSupplier() {
-        throw new UnsupportedOperationException("It's your job to implement this method"); // todo
+        return ()->()->()->"WELL DONE!";
     }
 }
 
